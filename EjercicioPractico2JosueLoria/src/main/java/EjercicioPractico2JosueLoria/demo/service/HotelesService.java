@@ -8,11 +8,13 @@ import EjercicioPractico2JosueLoria.demo.domain.Hoteles;
 import java.util.List;
 
 public interface HotelesService {
-        // Se obtiene un listado de categorias en un List
-    public List<Hoteles> getHoteles();
+    
+    
+    // Se obtiene un listado de categorias en un List
+    public List<Hoteles> getHoteles(boolean activos);
    
    // Se obtiene un Categoria, a partir del id de un categoria
-    public Hoteles getHotel(Hoteles hotel);
+    public Hoteles getHoteles(Hoteles hotel);
     
     // Se inserta un nuevo categoria si el id del categoria esta vacío
     // Se actualiza un categoria si el id del categoria NO esta vacío

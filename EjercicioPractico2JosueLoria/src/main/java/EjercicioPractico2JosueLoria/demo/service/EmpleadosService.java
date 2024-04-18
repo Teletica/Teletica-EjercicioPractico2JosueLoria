@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface EmpleadosService {
     
-    public List<Empleados> getHoteles();
+    public List<Empleados> getEmpleados(boolean activos);
    
    // Se obtiene un Categoria, a partir del id de un categoria
-    public Empleados getHotel(Empleados empleados);
+    public Empleados getEmpleados(Empleados empleados);
     
     // Se inserta un nuevo categoria si el id del categoria esta vacío
     // Se actualiza un categoria si el id del categoria NO esta vacío

@@ -10,45 +10,41 @@ import EjercicioPractico2JosueLoria.demo.service.HotelesService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-
+/**
+ *
+ * @author franv
+ */
 @Service
 public class HotelesServiceImpl implements HotelesService{
     
-    @Autowired//se conecta durectamente con este de abajo
+    @Autowired
     private HotelesDao hotelesDao;
-
-
+    
     @Override
-    public List<Hoteles> getHoteles() {
-        
+    @Transactional(readOnly = true)
+    public List<Hoteles> getHoteles(boolean activos) {
         var lista = hotelesDao.findAll();
-        
         return lista;
-       
     }
 
     @Override
-    public Hoteles getHotel(Hoteles hotel) {
-        
-        return hotelesDao.findById(hotel.getId()).orElse(null);
-        
+    @Transactional(readOnly = true)
+    public Hoteles getHoteles(Hoteles hoteles) {
+        return hotelesDao.findById(hoteles.getIdHoteles()).orElse(null);
     }
 
     @Override
-    public void save(Hoteles hotel) {
-        
-        hotelesDao.save(hotel);
-        
+    @Transactional
+    public void save(Hoteles hoteles) {
+       hotelesDao.save(hoteles);
     }
 
     @Override
-    public void delete(Hoteles hotel) {
-        hotelesDao.delete(hotel);
-       
+    @Transactional
+    public void delete(Hoteles hoteles) {
+       hotelesDao.delete(hoteles);
     }
-    
-    
-  
     
 }

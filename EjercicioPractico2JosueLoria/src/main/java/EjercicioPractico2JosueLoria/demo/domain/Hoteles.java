@@ -23,8 +23,8 @@ import lombok.Data;
 @Table(name="hoteles")
 public class Hoteles implements Serializable {
 
-    public Hoteles(Long id, String nombre, String ubicacion, String descripcion) {
-        this.id = id;
+    public Hoteles(String nombre, String ubicacion, String descripcion) {
+        
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.descripcion = descripcion;
@@ -35,10 +35,11 @@ public class Hoteles implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private Long id;
+    private Long idHoteles;
     private String nombre;
     private String ubicacion;
     private String descripcion;
+   
 
 
     public Hoteles() {
