@@ -17,6 +17,14 @@ import lombok.Data;
 @Entity
 @Table(name="reservas")
 public class Reservas {
+
+    public Reservas(String cliente_nombre, int num_huespedes, String numero_cedula, Date fecha_ingreso, Date fecha_salida) {
+        this.cliente_nombre = cliente_nombre;
+        this.num_huespedes = num_huespedes;
+        this.numero_cedula = numero_cedula;
+        this.fecha_ingreso = fecha_ingreso;
+        this.fecha_salida = fecha_salida;
+    }
     
     
     private static final long serialVersionUID = 1L;
