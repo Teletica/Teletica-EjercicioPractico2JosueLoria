@@ -9,9 +9,10 @@ import EjercicioPractico2JosueLoria.demo.domain.Empleados;
 import EjercicioPractico2JosueLoria.demo.service.EmpleadosService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Service
 public class EmpleadosServiceImpl implements EmpleadosService{
     
     @Autowired//se conecta durectamente con este de abajo
@@ -28,7 +29,7 @@ public class EmpleadosServiceImpl implements EmpleadosService{
     @Override
     @Transactional(readOnly = true)
     public Empleados getEmpleados(Empleados empleados) {
-        return empleadosDao.findById(empleados.getId()).orElse(null);
+        return empleadosDao.findById(empleados.getIdEmpleado()).orElse(null);
        
     }
 

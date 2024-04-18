@@ -1,10 +1,7 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head th:replace="~{layout/plantilla :: head}">
-        <title>TechShop gabriel badilla</title>
-    </head>
     <body>
         <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
@@ -15,16 +12,17 @@
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#agregarHoteles">
-                            <i class="fas fa-plus"></i> [[#{hoteles.agregar}]]
+                            data-bs-target="#agregarProducto">
+                            <i class="fas fa-plus"></i> [[#{producto.agregar}]]
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section th:fragment="agregarHoteles">
-            <div id="agregarHoteles" 
+        <!-- 2 Fragmento para agregar producto, es la ventana modal -->
+        <section th:fragment="agregarEmpleado">
+            <div id="agregarProducto" 
                  class="modal fade" 
                  tabindex="-1" 
                  aria-labelledby="exampleModalLabel" 
@@ -32,25 +30,38 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title">[[#{hoteles.agregar}]]</h5>
+                            <h5 class="modal-title">[[#{producto.agregar}]]</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/hoteles/guardar}" th:object="${hoteles}"
+                        <form th:action="@{/empleados/guardar}" th:object="${empleados}"
                               method="POST" class="was-validated" enctype="multipart/form-data">
+
+                            <input type="hidden" name="nuevaImagen" value="NO"/>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="descripcion">[[#{hoteles.nombre}]]</label>
+                                    <label for="idEmpleado">[[#{producto.nombre}]]</label>
+                                    <select name="empleados.idEmpleado"  
+                                            class="form-select" 
+                                            aria-label="Default select example">
+                                        <option th:each="c : ${empleados}" th:value="${c.idEmpleado}" th:text="${c.nombre}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombre">[[#{producto.nombre}]]</label>
                                     <input type="text" class="form-control" name="nombre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="descripcion">[[#{hoteles.descripcion}]]</label>
-                                    <input type="text" class="form-control" name="ubicacion" required="true"/>
+                                    <label for="cargo">[[#{producto.cargo}]]</label>
+                                    <input type="text" class="form-control" name="cargo" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="descripcion">[[#{hoteles.ubicacion}]]</label>
-                                    <input type="text" class="form-control" name="descripcion" required="true"/>
+                                    <label for="hotelId">[[#{producto.descripcion}]]</label>
+                                    <input type="text" class="form-control" name="hotelId" required="true"/>
                                 </div>
+
                             </div>
+
                             <div class="modal-footer">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
                             </div>
@@ -59,91 +70,99 @@
                 </div>
             </div>
         </section>
-        
-        <!-- 3 Sección principal para mostrar la informaccion de la entidad categoria -->
-        <section th:fragment="listadoEmpleados" id="empleados">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>[[#{hoteles.listado}]]</h4>
-                            </div>
-                            <div th:if="${empleados != null and !empleados.empty}">
-                                <table class="table table-striped table-hover">
-                                    <thead class="table-dark">
-                                        <tr><th>#</th>
-                                            <th>[[#{empleados.descripcion}]]</th>
-                                            <th>[[#{empleados.activo}]]</th>
-                                            <th></th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="hoteles, contador : ${hoteles}">
-                                            <td>[[${contador.count}]]</td>
-                                            <td>[[${empleados.nombre}]]</td>
-                                            <td>[[${empleados.cargo}]]</td>
-                                            <td>
-                                                <a th:href="@{/hoteles/eliminar/}+${hoteles.idHoteles}"
-                                                   class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a>
-                                                <a th:href="@{/hoteles/modificar/}+${hoteles.idHoteles}"
-                                                   class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="text-center p-2" th:if="${empleados == null or empleados.empty}">
-                                <span>[[#{lista.vacia}]]</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section th:fragment="editarHoteles">
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad producto -->​
+        <section th:fragment="listadoEmpleado" id="Empleado">​
+            <div class="container">​
+                <div class="row">​
+                    <div class="col-md-10">​
+                        <div class="card">​
+                            <div class="card-header">​
+                                <h4>[[#{producto.listado}]]</h4></div>​
+                            <div th:if="${empleados != null and !empleados.empty}" >​
+                                <table class="table table-striped table-hover fs-6">​
+                                    <thead class="table-dark">​
+                                        <tr><th>#</th>​
+                                            <th class="text-center">[[#{producto.nombre}]]</th>​
+                                            <th class="text-center">[[#{producto.cargo}]]</th>​
+                                            <th class="text-center">[[#{producto.idhotel}]]</th>​​
+                                            <th></th><th></th></tr>
+                                    </thead>​
+                                    <tbody>​
+                                        <tr th:each="empleados, contador : ${empleados}">​
+                                            <td class="text-center">[[${contador.count}]]</td>​
+                                            <td class="fs-6">[[${empleados.nombre}]]</td>​
+                                            <td class="text-center">[[${empleados.cargo}]]</td>​
+                                            <td>[[${empleados.hotelId}]]</td>​
+                                            <td><a th:href="@{/empleados/eliminar/}+${empleados.idEmpleado}"​
+                                                   class="btn btn-danger">​
+                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]</a></td>​
+                                                    <td>​
+                                                    <a th:href="@{/empleados/modificar/}+${empleados.idEmpleado}"​
+                                                    class="btn btn-success">​
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]</a></td></tr>​
+                                    </tbody>​
+                                </table>​
+                            </div>​
+                            <div class="text-center p-2" th:if="${empleados == null or empleados.empty}">​
+                                <span>[[#{lista.vacia}]]</span>​
+                            </div>​
+                        </div>​
+                    </div>
+                </div>​
+            </div>​
+        </section>​
+
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarEmpleado">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST"
-                          th:action="@{/hoteles/guardar}" 
-                          th:object="${hoteles}"
+                          th:action="@{/empleados/guardar}" 
+                          th:object="${empleados}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
-                        <input type="hidden" name="idHoteles" th:field="*{idHoteles}"/>
-                        <input type="hidden" name="nombre" th:field="*{name}"/>
-                        <section th:replace="~{hoteles/fragmentos :: botonesEditar}"/>
+                        <input type="hidden" name="idEmpleado" th:field="*{idEmpleado}"/>
+                        
+                        <section th:replace="~{empleados/fragmentos :: botonesEditar}"/>
                         <div id=details>
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4>[[#{hoteles.actualizar}]]</h4>
+                                                <h4>[[#{accion.actualizar}]]</h4>
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="nombre">[[#{hoteles.nombre}]]</label>
+                                                    <label for="idEmpleado">[[#{producto.categoria}]]</label>
+                                                    <select th:field="*{empleados.idEmpleado}"
+                                                            class="form-select" 
+                                                            aria-label="Default select example">
+                                                        <option th:each="c : ${empleados}" th:value="${c.idEmpleado}" th:text="${c.nombre}">
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{producto.nombre}]]</label>
                                                     <input type="text" class="form-control" 
                                                            name="nombre" th:field="*{nombre}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="ubicacion">[[#{hoteles.ubicacion}]]</label>
-                                                    <input class="form-check-input" 
-                                                           type="checkbox" 
-                                                           name="ubicacion" 
-                                                           id="ubicacion"
-                                                           th:field="*{ubicacion}">
+                                                    <label for="cargo">[[#{producto.cargo}]]</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="cargo" th:field="*{cargo}"
+                                                           required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="descripcion">[[#{hoteles.descripcion}]]</label>
-                                                    <input class="form-check-input" 
-                                                           type="checkbox" 
-                                                           name="descripcion" 
-                                                           id="descripcion"
-                                                           th:field="*{descripcion}">
-                                                </div>
+                                                    <label for="precio">[[#{producto.precio}]]</label>                                    
+                                                    <input type="number" class="form-control" 
+                                                           th:field="*{precio}" required="true"/>
+                                                </div>  
                                             </div>
                                         </div>
                                     </div>
@@ -153,17 +172,18 @@
                 </div>
             </div>
         </section>
-                        
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
         <section th:fragment="botonesEditar">
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/hoteles/listado}" class="btn btn-primary">
+                        <a th:href="@{/empleados/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/hoteles/eliminar/}+${hoteles.idHoteles}"
+                        <a th:href="@{/empleados/eliminar/}+${empleados.idEmpleado}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
@@ -175,6 +195,5 @@
                     </div>
                 </div>
             </div>
-        </section>    
+        </section>
     </body>
-</html>
