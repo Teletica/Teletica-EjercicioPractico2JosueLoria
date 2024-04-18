@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout/plantilla :: head}">
+    <title>Hotel Josue Loria</title>        
+</head>
+<body>
+    <header th:replace="~{layout/plantilla :: header}"/>
+    
+    <section id="main-content">
+        <!-- Contenido principal -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="font-italic">¡Bienvenido a Hotel Josue Loria!</h1>
+                    <p class="lead">Disfruta de una experiencia única en nuestro hotel, donde la comodidad y el lujo se encuentran.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Agrega aquí tus promociones -->
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Promoción 1</h5>
+                            <p class="card-text">¡Reserva ahora y obtén un 20% de descuento!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Promoción 2</h5>
+                            <p class="card-text">¡Estancia de 3 noches al precio de 2!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de videos -->
+    <section id="videos" class="py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/k_EK7D-k2Tc?si=gVmEMl6DIyIXuC8y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="col-md-4">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/cnP7zN-fRv4?si=nL2NgqbcAjtbjtNH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="col-md-4">
+                   <iframe width="100%" height="315" src="https://www.youtube.com/embed/Y31lGhhcxpw?si=NiQRun7smX9-WG3Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="~{layout/plantilla :: footer}"/>          
+</body>
+</html>
